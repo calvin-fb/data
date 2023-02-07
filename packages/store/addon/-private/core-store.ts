@@ -964,7 +964,7 @@ class Store extends Service {
     options?: FindOptions
   ): PromiseObject<RecordInstance> {
     if (DEBUG) {
-      assertDestroyingStore(this, 'findRecord');
+      assertDestroyingStore(this, 'findRecord', resource, id);
     }
 
     assert(
@@ -2479,9 +2479,9 @@ let assertDestroyingStore: Function;
 let assertDestroyedStoreOnly: Function;
 
 if (DEBUG) {
-  assertDestroyingStore = function assertDestroyedStore(store, method) {
+  assertDestroyingStore = function assertDestroyedStore(store, method, resource, id) {
     assert(
-      `Attempted to call store.${method}(), but the store instance has already been destroyed.`,
+      `Attempted to call store.${method}(), but the store instance has already been destroyed. calvin ${resource} - ${id}`,
       !(store.isDestroying || store.isDestroyed)
     );
   };
